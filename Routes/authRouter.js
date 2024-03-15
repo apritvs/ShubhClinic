@@ -9,48 +9,6 @@ const patientInfo=require("../Controllers/patientController");
 const { ObjectId } = require("mongodb");
 
 
-/**
- * @swagger
- * /auth/savedoctor:
- *   post:
- *     summary: Create a new doctor record
- *     tag:[doctor]
- *     description: Create a new doctor record with provided name, specialization, and contact details
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               name:
- *                 type: string
- *                 description: The name of the doctor
- *               specialization:
- *                 type: string
- *                 description: The specialization of the doctor
- *               contact:
- *                 type: string
- *                 description: Contact details of the doctor
- *     responses:
- *       200:
- *         description: Doctor record created successfully
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 status:
- *                   type: boolean
- *                   description: Indicates if the operation was successful
- *                 msg:
- *                   type: string
- *                   description: Message indicating the status of the operation
- *       400:
- *         description: Bad request. Request body is missing or invalid
- *       500:
- *         description: Internal server error
- */
 
 //doctor SignUp api
 router.post("/savedoctor",doctorInfo.doctorSignUp);
@@ -81,68 +39,6 @@ catch(err){
 })
 
 
-/**
- * @swagger
- * components:
- *   schemas:
- *     SaveReceptionRequest:
- *       type: object
- *       required:
- *         - username
- *         - password
- *         - name
- *         - contact
- *       properties:
- *         username:
- *           type: string
- *           description: The username of the receptionist
- *         password:
- *           type: string
- *           description: The password of the receptionist
- *         name:
- *           type: string
- *           description: The name of the receptionist
- *         contact:
- *           type: string
- *           description: The contact information of the receptionist
- */
-
-
-/**
- * @swagger
- * /auth/saveReception:
- *   post:
- *     summary: Save receptionist
- *     tag:[Reception]
- *     description: Save a receptionist with username, password, name, and contact information
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/SaveReceptionRequest'
- *     responses:
- *       200:
- *         description: Successful insertion
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 status:
- *                   type: boolean
- *                   description: Indicates if the operation was successful
- *                 msg:
- *                   type: string
- *                   description: Message indicating the status of the operation
- *                 data:
- *                   type: object
- *                   description: The inserted data
- *       400:
- *         description: Invalid request body
- *       500:
- *         description: Internal server error
- */
 
 
 router.post("/receptionlogin",async(req,res)=>{
@@ -168,8 +64,7 @@ router.post("/receptionlogin",async(req,res)=>{
         }
     })
 
-    router.delete("/deleteReception/:id",receptionInfo.deleteReception);
-    router.delete("/deletepatient/:id",patientInfo.deletePatient);
+  
     router.get("/searchpatient/:id",patientInfo.searchPatient);
     router.get("/searchreception/:id",receptionInfo.searchReception);
     router.get("/searchallreception",receptionInfo.searchAllReception);
@@ -186,7 +81,8 @@ router.use((req,res,next)=>{
         }
     })
     });
-
+  router.delete("/deleteReception/:id",receptionInfo.deleteReception);
+    router.delete("/deletepatient/:id",patientInfo.deletePatient);
 router.post("/savereception",receptionInfo.saveReception);
 router.post("/addpatient",patientInfo.addPatient);
     
